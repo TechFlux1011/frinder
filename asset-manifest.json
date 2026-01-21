@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/frinder/static/css/main.6633300a.css",
-    "main.js": "/frinder/static/js/main.3b22ef7f.js",
+    "main.js": "/frinder/static/js/main.5b06b906.js",
     "static/js/453.1b39467e.chunk.js": "/frinder/static/js/453.1b39467e.chunk.js",
     "index.html": "/frinder/index.html",
     "main.6633300a.css.map": "/frinder/static/css/main.6633300a.css.map",
-    "main.3b22ef7f.js.map": "/frinder/static/js/main.3b22ef7f.js.map",
+    "main.5b06b906.js.map": "/frinder/static/js/main.5b06b906.js.map",
     "453.1b39467e.chunk.js.map": "/frinder/static/js/453.1b39467e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6633300a.css",
-    "static/js/main.3b22ef7f.js"
+    "static/js/main.5b06b906.js"
   ]
 }
