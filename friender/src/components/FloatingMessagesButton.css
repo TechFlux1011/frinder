@@ -1,0 +1,33 @@
+.floating-messages-btn {
+  position: fixed;
+  right: 16px;
+  bottom: calc(clamp(60px, 15vw, 80px) + 12px);
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: none; /* desktop: keep Messages in navbar */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  z-index: 200; /* above navbar (z=100) */
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.floating-messages-btn:active {
+  transform: scale(0.96);
+}
+
+.floating-messages-btn:hover {
+  opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+  .floating-messages-btn {
+    display: flex;
+  }
+}
+

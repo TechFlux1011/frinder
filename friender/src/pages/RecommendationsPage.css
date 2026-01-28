@@ -144,6 +144,10 @@
   font-weight: 500;
 }
 
+.tag.value-tag {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
 .connect-btn {
   width: 100%;
   padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);

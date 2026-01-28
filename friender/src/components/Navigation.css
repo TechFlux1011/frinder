@@ -118,6 +118,11 @@
     justify-items: center;
   }
 
+  /* Messages moves to floating button on mobile */
+  .nav-link-messages {
+    display: none;
+  }
+
   .nav-link {
     flex: 1;
     width: 100%;

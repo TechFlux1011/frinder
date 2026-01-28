@@ -51,6 +51,13 @@ const Navigation = () => {
             <span className="nav-text">Matches</span>
           </Link>
           <Link 
+            to="/messages" 
+            className={`nav-link nav-link-messages ${isActive('/messages') ? 'active' : ''}`}
+          >
+            <span className="nav-icon">💬</span>
+            <span className="nav-text">Messages</span>
+          </Link>
+          <Link 
             to="/profile" 
             className={`nav-link ${isActive('/profile') ? 'active' : ''}`}
           >

@@ -146,6 +146,19 @@
   box-shadow: 0 4px 15px rgba(81, 207, 102, 0.3);
 }
 
+.save-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.profile-save-hint {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
 .profile-section {
   margin-bottom: clamp(2rem, 5vw, 2.5rem);
 }
@@ -159,6 +172,19 @@
   color: #333;
   margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
   font-weight: 600;
+}
+
+.profile-limit {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.profile-limit-hint {
+  margin: 0 0 0.75rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .tags {

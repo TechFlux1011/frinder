@@ -14,6 +14,7 @@ export const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [messages, setMessages] = useState({});
   const [groups, setGroups] = useState([]);
   const [swipedUsers, setSwipedUsers] = useState(new Set());
 
@@ -26,7 +27,7 @@ export const AppProvider = ({ children }) => {
       age: 25,
       bio: 'Looking for friends who love hiking, coffee, and board games!',
       interests: ['hiking', 'coffee', 'board games', 'photography', 'yoga'],
-      values: ['authenticity', 'adventure', 'kindness', 'growth'],
+      values: ['authenticity', 'adventure', 'kindness', 'growth', 'community'],
       location: 'San Francisco, CA',
       avatar: '👤'
     };
@@ -124,13 +125,24 @@ export const AppProvider = ({ children }) => {
       // Check if it's a match (simplified - in real app, check if they swiped right on you)
       const swipedUser = users.find(u => u.id === userId);
       if (swipedUser && Math.random() > 0.5) { // 50% chance of match for demo
+        const matchId = `match-${Date.now()}`;
         const newMatch = {
-          id: `match-${Date.now()}`,
+          id: matchId,
           user: swipedUser,
-          matchedAt: new Date(),
-          messages: []
+          matchedAt: new Date()
         };
         setMatches(prev => [...prev, newMatch]);
+        setMessages(prev => ({
+          ...prev,
+          [matchId]: [
+            {
+              id: `msg-${Date.now()}`,
+              from: 'system',
+              text: `You matched with ${swipedUser.name}! Say hi 👋`,
+              createdAt: new Date()
+            }
+          ]
+        }));
       }
     }
   };
@@ -162,20 +174,52 @@ export const AppProvider = ({ children }) => {
     ));
   };
 
+  const sendMessage = (matchId, text, from = 'me') => {
+    if (!text.trim()) return;
+
+    const message = {
+      id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      from,
+      text: text.trim(),
+      createdAt: new Date()
+    };
+
+    setMessages(prev => ({
+      ...prev,
+      [matchId]: [...(prev[matchId] || []), message]
+    }));
+  };
+
+  const getMessagesForMatch = (matchId) => {
+    return messages[matchId] || [];
+  };
+
+  const updateCurrentUser = (updates) => {
+    setCurrentUser(prev => (prev ? { ...prev, ...updates } : prev));
+  };
+
   const getRecommendedUsers = () => {
     if (!currentUser) return [];
     
     return users
       .filter(user => !swipedUsers.has(user.id))
       .map(user => {
-        const interestMatch = user.interests.filter(interest => 
-          currentUser.interests.includes(interest)
+        const topInterests = currentUser.interests || [];
+        const topValues = currentUser.values || [];
+
+        const interestMatches = (user.interests || []).filter(interest =>
+          topInterests.includes(interest)
         ).length;
-        const valueMatch = user.values.filter(value => 
-          currentUser.values.includes(value)
+        const valueMatches = (user.values || []).filter(value =>
+          topValues.includes(value)
         ).length;
-        const score = interestMatch * 2 + valueMatch * 3;
-        return { ...user, matchScore: score };
+
+        // User selects 5 top interests + 5 top values => 10 total items.
+        // Each matching item is worth 10%.
+        const overlapCount = interestMatches + valueMatches;
+        const matchScore = Math.min(100, overlapCount * 10);
+
+        return { ...user, matchScore };
       })
       .sort((a, b) => b.matchScore - a.matchScore);
   };
@@ -185,12 +229,16 @@ export const AppProvider = ({ children }) => {
     users,
     matches,
     groups,
+    messages,
     swipedUsers,
     swipeUser,
     createGroup,
     joinGroup,
     createMeetup,
-    getRecommendedUsers
+    getRecommendedUsers,
+    sendMessage,
+    getMessagesForMatch,
+    updateCurrentUser
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

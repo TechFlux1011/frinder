@@ -19,7 +19,7 @@ const RecommendationsPage = () => {
         <div className="empty-state">
           <div className="empty-icon">⭐</div>
           <h2>No recommendations yet</h2>
-          <p>Complete your profile with interests and values to get personalized friend recommendations!</p>
+          <p>Choose your top 5 interests and top 5 values to get personalized friend recommendations!</p>
         </div>
       </div>
     );
@@ -51,13 +51,23 @@ const RecommendationsPage = () => {
                   <h4>Why you'll connect:</h4>
                   <div className="tags">
                     {user.interests
-                      .filter(interest => 
+                      .filter(interest =>
                         currentUser?.interests?.includes(interest)
                       )
                       .slice(0, 3)
                       .map((interest, idx) => (
-                        <span key={idx} className="tag">
+                        <span key={`interest-${idx}`} className="tag">
                           {interest}
+                        </span>
+                      ))}
+                    {user.values
+                      .filter(value =>
+                        currentUser?.values?.includes(value)
+                      )
+                      .slice(0, 3)
+                      .map((value, idx) => (
+                        <span key={`value-${idx}`} className="tag value-tag">
+                          {value}
                         </span>
                       ))}
                   </div>

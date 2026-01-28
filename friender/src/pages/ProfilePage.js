@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
-  const { currentUser } = useApp();
+  const { currentUser, updateCurrentUser } = useApp();
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(currentUser || {
     name: '',
@@ -13,6 +13,27 @@ const ProfilePage = () => {
     values: [],
     location: ''
   });
+
+  const maxTopInterests = 5;
+  const maxTopValues = 5;
+
+  const interestsRemaining = useMemo(
+    () => Math.max(0, maxTopInterests - (profile.interests?.length || 0)),
+    [profile.interests]
+  );
+  const valuesRemaining = useMemo(
+    () => Math.max(0, maxTopValues - (profile.values?.length || 0)),
+    [profile.values]
+  );
+
+  const canSaveTopPicks =
+    (profile.interests?.length || 0) === maxTopInterests &&
+    (profile.values?.length || 0) === maxTopValues;
+
+  useEffect(() => {
+    if (!currentUser) return;
+    setProfile(currentUser);
+  }, [currentUser]);
 
   const availableInterests = [
     'hiking', 'coffee', 'board games', 'photography', 'yoga', 'reading',
@@ -27,6 +48,7 @@ const ProfilePage = () => {
   ];
 
   const handleAddInterest = (interest) => {
+    if ((profile.interests?.length || 0) >= maxTopInterests) return;
     if (!profile.interests.includes(interest)) {
       setProfile({
         ...profile,
@@ -43,6 +65,7 @@ const ProfilePage = () => {
   };
 
   const handleAddValue = (value) => {
+    if ((profile.values?.length || 0) >= maxTopValues) return;
     if (!profile.values.includes(value)) {
       setProfile({
         ...profile,
@@ -60,6 +83,14 @@ const ProfilePage = () => {
 
   const handleSave = () => {
     // In a real app, this would save to backend
+    updateCurrentUser({
+      name: profile.name,
+      age: profile.age,
+      bio: profile.bio,
+      location: profile.location,
+      interests: profile.interests?.slice(0, maxTopInterests) || [],
+      values: profile.values?.slice(0, maxTopValues) || []
+    });
     setIsEditing(false);
   };
 
@@ -108,7 +139,14 @@ const ProfilePage = () => {
                   value={profile.bio}
                   onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                 />
-                <button onClick={handleSave} className="save-btn">Save Changes</button>
+                <button onClick={handleSave} className="save-btn" disabled={!canSaveTopPicks}>
+                  Save Changes
+                </button>
+                {!canSaveTopPicks && (
+                  <p className="profile-save-hint">
+                    Choose exactly {maxTopInterests} interests and {maxTopValues} values to enable saving.
+                  </p>
+                )}
               </div>
             ) : (
               <>
@@ -120,9 +158,14 @@ const ProfilePage = () => {
           </div>
 
           <div className="profile-section">
-            <h3>Interests</h3>
+            <h3>Top Interests <span className="profile-limit">({profile.interests.length}/{maxTopInterests})</span></h3>
             {isEditing ? (
               <div className="editable-tags">
+                {interestsRemaining === 0 ? (
+                  <p className="profile-limit-hint">You’ve picked your top {maxTopInterests}. Tap one to remove it.</p>
+                ) : (
+                  <p className="profile-limit-hint">Pick {interestsRemaining} more to complete your top {maxTopInterests}.</p>
+                )}
                 <div className="selected-tags">
                   {profile.interests.map((interest, idx) => (
                     <span 
@@ -137,6 +180,7 @@ const ProfilePage = () => {
                 <div className="available-tags">
                   {availableInterests
                     .filter(i => !profile.interests.includes(i))
+                    .filter(() => (profile.interests?.length || 0) < maxTopInterests)
                     .map((interest, idx) => (
                       <span
                         key={idx}
@@ -158,9 +202,14 @@ const ProfilePage = () => {
           </div>
 
           <div className="profile-section">
-            <h3>Values</h3>
+            <h3>Top Values <span className="profile-limit">({profile.values.length}/{maxTopValues})</span></h3>
             {isEditing ? (
               <div className="editable-tags">
+                {valuesRemaining === 0 ? (
+                  <p className="profile-limit-hint">You’ve picked your top {maxTopValues}. Tap one to remove it.</p>
+                ) : (
+                  <p className="profile-limit-hint">Pick {valuesRemaining} more to complete your top {maxTopValues}.</p>
+                )}
                 <div className="selected-tags">
                   {profile.values.map((value, idx) => (
                     <span 
@@ -175,6 +224,7 @@ const ProfilePage = () => {
                 <div className="available-tags">
                   {availableValues
                     .filter(v => !profile.values.includes(v))
+                    .filter(() => (profile.values?.length || 0) < maxTopValues)
                     .map((value, idx) => (
                       <span
                         key={idx}
