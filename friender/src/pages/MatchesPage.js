@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import './MatchesPage.css';
 
 const MatchesPage = () => {
+  const navigate = useNavigate();
   const { matches, createMeetup } = useApp();
   const [selectedMatch, setSelectedMatch] = useState(null);
   const [showMeetupForm, setShowMeetupForm] = useState(false);
@@ -83,15 +85,24 @@ const MatchesPage = () => {
                   </span>
                 </div>
               ) : (
-                <button
-                  className="plan-meetup-btn"
-                  onClick={() => {
-                    setSelectedMatch(match.id);
-                    setShowMeetupForm(true);
-                  }}
-                >
-                  Plan Meetup
-                </button>
+                <div className="match-actions">
+                  <button
+                    className="message-btn"
+                    onClick={() => navigate(`/messages?match=${match.id}`)}
+                    title="Send a message"
+                  >
+                    💬 Message
+                  </button>
+                  <button
+                    className="plan-meetup-btn"
+                    onClick={() => {
+                      setSelectedMatch(match.id);
+                      setShowMeetupForm(true);
+                    }}
+                  >
+                    Plan Meetup
+                  </button>
+                </div>
               )}
             </div>
           ))}

@@ -1,11 +1,21 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 import './Navigation.css';
 
 const Navigation = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { resetOnboarding } = useApp();
 
   const isActive = (path) => location.pathname === path;
+
+  const handleDevReset = () => {
+    if (window.confirm('Reset to sign-in page? This will clear your onboarding state.')) {
+      resetOnboarding();
+      navigate('/');
+    }
+  };
 
   return (
     <nav className="navigation">
@@ -16,8 +26,8 @@ const Navigation = () => {
         </Link>
         <div className="nav-links">
           <Link 
-            to="/" 
-            className={`nav-link ${isActive('/') ? 'active' : ''}`}
+            to="/home" 
+            className={`nav-link ${isActive('/home') ? 'active' : ''}`}
           >
             <span className="nav-icon">🏠</span>
             <span className="nav-text">Home</span>
@@ -65,6 +75,13 @@ const Navigation = () => {
             <span className="nav-text">Profile</span>
           </Link>
         </div>
+        <button 
+          onClick={handleDevReset}
+          className="dev-reset-btn"
+          title="Dev: Reset to sign-in"
+        >
+          🔄
+        </button>
       </div>
     </nav>
   );

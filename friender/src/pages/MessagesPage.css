@@ -1,13 +1,15 @@
 .messages-page {
-  min-height: calc(100vh - clamp(80px, 15vw, 100px));
-  padding: clamp(1rem, 4vw, 2rem) clamp(0.75rem, 2vw, 1rem);
+  /* min-height: calc(100vh - clamp(80px, 15vw, 100px)); */
+  /* padding: clamp(1rem, 4vw, 2rem); */
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 768px) {
   .messages-page {
     min-height: calc(100vh - clamp(60px, 15vw, 80px));
-    padding-bottom: clamp(1rem, 4vw, 2rem);
+    padding: clamp(1rem, 4vw, 2rem);
   }
 }
 
@@ -17,28 +19,77 @@
   background: white;
   border-radius: clamp(16px, 4vw, 20px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
   overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-@media (max-width: 768px) {
-  .messages-container {
-    grid-template-columns: 1fr;
-  }
+.messages-list-view {
+  padding: clamp(1.5rem, 4vw, 2rem);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.messages-sidebar {
+.messages-list-view .messages-match-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.messages-list-sidebar {
   border-right: 1px solid #f0f0f0;
   padding: clamp(1rem, 3vw, 1.5rem);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  min-height: calc(100vh - clamp(120px, 20vw, 140px));
+}
+
+.messages-back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.messages-back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-2px);
 }
 
 @media (max-width: 768px) {
-  .messages-sidebar {
+  .messages-container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  
+  .messages-list-sidebar {
     border-right: none;
     border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+  
+  .messages-list-view {
+    min-height: auto;
+  }
+  
+  .messages-list-sidebar {
+    min-height: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .messages-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
   }
 }
 
@@ -64,6 +115,7 @@
   border-radius: 12px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease;
+  position: relative;
 }
 
 .messages-match-item:hover {
@@ -73,6 +125,13 @@
 
 .messages-match-item.active {
   background: rgba(255, 255, 255, 0.22);
+}
+
+.messages-match-time {
+  margin-left: auto;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  white-space: nowrap;
 }
 
 .messages-match-avatar {
@@ -243,3 +302,127 @@
   font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
+/* Meetup Preview Styles */
+.messages-bubble.meetup-preview {
+  max-width: 85%;
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.meetup-preview-content {
+  padding: clamp(0.75rem, 2vw, 1rem);
+}
+
+.meetup-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.meetup-icon {
+  font-size: 1.25rem;
+}
+
+.meetup-title {
+  font-size: 0.95rem;
+}
+
+.meetup-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.meetup-detail-item {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.meetup-detail-label {
+  font-weight: 600;
+  opacity: 0.8;
+  min-width: 60px;
+}
+
+.meetup-detail-value {
+  flex: 1;
+}
+
+.meetup-status-badge {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.meetup-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.meetup-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.meetup-btn-yes {
+  background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+  color: white;
+}
+
+.meetup-btn-yes:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(81, 207, 102, 0.4);
+}
+
+.meetup-btn-rain-check {
+  background: linear-gradient(135deg, #ffd43b 0%, #fab005 100%);
+  color: white;
+}
+
+.meetup-btn-rain-check:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 212, 59, 0.4);
+}
+
+.meetup-preview.me {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.meetup-preview.me .meetup-detail-label {
+  opacity: 0.9;
+}
+
+.meetup-preview.me .meetup-status-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.meetup-preview.them {
+  background: white;
+  border: 1px solid #e5e5e5;
+  color: #333;
+}
+
+.meetup-preview.them .meetup-status-badge {
+  background: rgba(0, 0, 0, 0.05);
+  color: #666;
+}

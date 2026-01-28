@@ -4,10 +4,17 @@ import SwipeCard from '../components/SwipeCard';
 import './SwipePage.css';
 
 const SwipePage = () => {
-  const { users, swipedUsers, swipeUser } = useApp();
+  const { users, swipedUsers, matches, swipeUser, currentUser: loggedInUser } = useApp();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const availableUsers = users.filter(user => !swipedUsers.has(user.id));
+  // Get list of matched user IDs to exclude them
+  const matchedUserIds = new Set(matches.map(match => match.user.id));
+
+  const availableUsers = users.filter(user => 
+    user.id !== loggedInUser?.id && // Don't show current user
+    !swipedUsers.has(user.id) && // Don't show swiped users
+    !matchedUserIds.has(user.id) // Don't show matched users
+  );
   const currentUser = availableUsers[currentIndex];
 
   const handleSwipe = (userId, direction) => {
@@ -40,7 +47,7 @@ const SwipePage = () => {
           <h1>Discover Friends</h1>
           <p>Swipe right to connect, left to pass</p>
         </div>
-        <SwipeCard user={currentUser} onSwipe={handleSwipe} />
+        <SwipeCard user={currentUser} currentUser={loggedInUser} onSwipe={handleSwipe} />
         <div className="swipe-progress">
           <p>{currentIndex + 1} of {availableUsers.length}</p>
         </div>

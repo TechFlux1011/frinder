@@ -26,6 +26,7 @@
   margin-bottom: clamp(1rem, 3vw, 1.5rem);
   padding-bottom: clamp(1rem, 3vw, 1.5rem);
   border-bottom: 2px solid #f0f0f0;
+  position: relative;
 }
 
 .user-avatar {
@@ -70,6 +71,36 @@
   margin: 0;
 }
 
+.card-match-score {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: clamp(20px, 5vw, 30px);
+  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1rem, 2.5vw, 1.25rem);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.match-score-value {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.match-score-label {
+  font-size: clamp(0.6rem, 1.5vw, 0.7rem);
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .card-interests,
 .card-values {
   margin-bottom: clamp(1rem, 3vw, 1.5rem);
@@ -92,21 +123,35 @@
 }
 
 .tag {
-  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.75rem, 2vw, 1rem);
+  padding: clamp(0.5rem, 1.5vw, 0.6rem) clamp(1rem, 2.5vw, 1.2rem);
   border-radius: 20px;
-  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   font-weight: 500;
   display: inline-block;
 }
 
-.interest-tag {
+.tag-top {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.4);
 }
 
-.value-tag {
+.tag-top.value-tag {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(240, 147, 251, 0.4);
+}
+
+.tag-extra {
+  background: linear-gradient(135deg, #22c55e 0%, #14b8a6 100%);
+  color: #ecfdf5;
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.6);
+}
+
+.tag-extra.value-tag {
+  background: linear-gradient(135deg, #fb7185 0%, #fb923c 100%);
+  color: #fff7ed;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.6);
 }
 
 .card-actions {

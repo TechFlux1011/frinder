@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import './ProfilePage.css';
 
@@ -9,30 +9,48 @@ const ProfilePage = () => {
     name: '',
     age: '',
     bio: '',
-    interests: [],
-    values: [],
-    location: ''
+    allInterests: [],
+    allValues: [],
+    location: '',
+    avatarUrl: ''
   });
 
   const maxTopInterests = 5;
   const maxTopValues = 5;
 
-  const interestsRemaining = useMemo(
-    () => Math.max(0, maxTopInterests - (profile.interests?.length || 0)),
-    [profile.interests]
-  );
-  const valuesRemaining = useMemo(
-    () => Math.max(0, maxTopValues - (profile.values?.length || 0)),
-    [profile.values]
-  );
+  const topInterests = (profile.allInterests || []).slice(0, maxTopInterests);
+  const extraInterests = (profile.allInterests || []).slice(maxTopInterests);
+  const topValues = (profile.allValues || []).slice(0, maxTopValues);
+  const extraValues = (profile.allValues || []).slice(maxTopValues);
+
+  const interestsRemaining = Math.max(0, maxTopInterests - topInterests.length);
+  const valuesRemaining = Math.max(0, maxTopValues - topValues.length);
 
   const canSaveTopPicks =
-    (profile.interests?.length || 0) === maxTopInterests &&
-    (profile.values?.length || 0) === maxTopValues;
+    topInterests.length === maxTopInterests &&
+    topValues.length === maxTopValues;
 
   useEffect(() => {
     if (!currentUser) return;
-    setProfile(currentUser);
+    const existingTopInterests = currentUser.interests || [];
+    const existingExtraInterests = currentUser.extraInterests || [];
+    const existingTopValues = currentUser.values || [];
+    const existingExtraValues = currentUser.extraValues || [];
+
+    const combinedInterests = [...existingTopInterests, ...existingExtraInterests];
+    const combinedValues = [...existingTopValues, ...existingExtraValues];
+
+    setProfile({
+      ...currentUser,
+      allInterests: combinedInterests,
+      allValues: combinedValues,
+      avatarUrl: currentUser.avatarUrl || ''
+    });
+
+    // If the user hasn't really set up their profile yet, drop them into edit mode.
+    if (!currentUser.name || (currentUser.interests || []).length === 0 || (currentUser.values || []).length === 0) {
+      setIsEditing(true);
+    }
   }, [currentUser]);
 
   const availableInterests = [
@@ -47,38 +65,34 @@ const ProfilePage = () => {
     'environment', 'sharing', 'respect', 'empathy', 'curiosity'
   ];
 
-  const handleAddInterest = (interest) => {
-    if ((profile.interests?.length || 0) >= maxTopInterests) return;
-    if (!profile.interests.includes(interest)) {
+  const toggleInterest = (interest) => {
+    const isSelected = (profile.allInterests || []).includes(interest);
+    if (isSelected) {
       setProfile({
         ...profile,
-        interests: [...profile.interests, interest]
+        allInterests: profile.allInterests.filter(i => i !== interest)
+      });
+    } else {
+      setProfile({
+        ...profile,
+        allInterests: [...(profile.allInterests || []), interest]
       });
     }
   };
 
-  const handleRemoveInterest = (interest) => {
-    setProfile({
-      ...profile,
-      interests: profile.interests.filter(i => i !== interest)
-    });
-  };
-
-  const handleAddValue = (value) => {
-    if ((profile.values?.length || 0) >= maxTopValues) return;
-    if (!profile.values.includes(value)) {
+  const toggleValue = (value) => {
+    const isSelected = (profile.allValues || []).includes(value);
+    if (isSelected) {
       setProfile({
         ...profile,
-        values: [...profile.values, value]
+        allValues: profile.allValues.filter(v => v !== value)
+      });
+    } else {
+      setProfile({
+        ...profile,
+        allValues: [...(profile.allValues || []), value]
       });
     }
-  };
-
-  const handleRemoveValue = (value) => {
-    setProfile({
-      ...profile,
-      values: profile.values.filter(v => v !== value)
-    });
   };
 
   const handleSave = () => {
@@ -88,8 +102,11 @@ const ProfilePage = () => {
       age: profile.age,
       bio: profile.bio,
       location: profile.location,
-      interests: profile.interests?.slice(0, maxTopInterests) || [],
-      values: profile.values?.slice(0, maxTopValues) || []
+      interests: topInterests,
+      values: topValues,
+      extraInterests: extraInterests,
+      extraValues: extraValues,
+      avatarUrl: profile.avatarUrl || ''
     });
     setIsEditing(false);
   };
@@ -113,7 +130,50 @@ const ProfilePage = () => {
 
         <div className="profile-card">
           <div className="profile-avatar-section">
-            <div className="profile-avatar">{profile.avatar || '👤'}</div>
+            <div className="profile-avatar-wrapper">
+              <div className="profile-avatar">
+                {profile.avatarUrl ? (
+                  <img
+                    src={profile.avatarUrl}
+                    alt="Profile"
+                    className="profile-avatar-image"
+                  />
+                ) : (
+                  profile.avatar || '👤'
+                )}
+              </div>
+              {isEditing && (
+                <>
+                  <button
+                    type="button"
+                    className="avatar-edit-button"
+                    onClick={() => document.getElementById('avatar-file-input')?.click()}
+                  >
+                    ✏️
+                  </button>
+                  <input
+                    id="avatar-file-input"
+                    type="file"
+                    accept="image/*"
+                    capture="user"
+                    className="avatar-file-input"
+                    onChange={(event) => {
+                      const file = event.target.files && event.target.files[0];
+                      if (!file) return;
+
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setProfile((prev) => ({
+                          ...prev,
+                          avatarUrl: typeof reader.result === 'string' ? reader.result : prev.avatarUrl
+                        }));
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                </>
+              )}
+            </div>
             {isEditing ? (
               <div className="profile-form">
                 <input
@@ -158,34 +218,37 @@ const ProfilePage = () => {
           </div>
 
           <div className="profile-section">
-            <h3>Top Interests <span className="profile-limit">({profile.interests.length}/{maxTopInterests})</span></h3>
+            <h3>Interests <span className="profile-limit">({topInterests.length}/{maxTopInterests} top picks)</span></h3>
             {isEditing ? (
               <div className="editable-tags">
                 {interestsRemaining === 0 ? (
                   <p className="profile-limit-hint">You’ve picked your top {maxTopInterests}. Tap one to remove it.</p>
                 ) : (
-                  <p className="profile-limit-hint">Pick {interestsRemaining} more to complete your top {maxTopInterests}.</p>
+                  <p className="profile-limit-hint">Pick {interestsRemaining} more to complete your top {maxTopInterests}. The rest will still count, just a bit less.</p>
                 )}
                 <div className="selected-tags">
-                  {profile.interests.map((interest, idx) => (
-                    <span 
-                      key={idx} 
-                      className="tag selected"
-                      onClick={() => handleRemoveInterest(interest)}
-                    >
-                      {interest} ×
-                    </span>
-                  ))}
+                  {profile.allInterests?.map((interest, idx) => {
+                    const isTop = idx < maxTopInterests;
+                    const tagClass = isTop ? 'tag selected tag-top' : 'tag selected tag-extra';
+                    return (
+                      <span
+                        key={idx}
+                        className={tagClass}
+                        onClick={() => toggleInterest(interest)}
+                      >
+                        {interest} ×
+                      </span>
+                    );
+                  })}
                 </div>
                 <div className="available-tags">
                   {availableInterests
-                    .filter(i => !profile.interests.includes(i))
-                    .filter(() => (profile.interests?.length || 0) < maxTopInterests)
+                    .filter(i => !profile.allInterests?.includes(i))
                     .map((interest, idx) => (
                       <span
                         key={idx}
                         className="tag available"
-                        onClick={() => handleAddInterest(interest)}
+                        onClick={() => toggleInterest(interest)}
                       >
                         + {interest}
                       </span>
@@ -194,42 +257,49 @@ const ProfilePage = () => {
               </div>
             ) : (
               <div className="tags">
-                {profile.interests.map((interest, idx) => (
+                {topInterests.map((interest, idx) => (
                   <span key={idx} className="tag">{interest}</span>
+                ))}
+                {extraInterests.map((interest, idx) => (
+                  <span key={`extra-${idx}`} className="tag">{interest}</span>
                 ))}
               </div>
             )}
           </div>
 
           <div className="profile-section">
-            <h3>Top Values <span className="profile-limit">({profile.values.length}/{maxTopValues})</span></h3>
+            <h3>Values <span className="profile-limit">({topValues.length}/{maxTopValues} top picks)</span></h3>
             {isEditing ? (
               <div className="editable-tags">
                 {valuesRemaining === 0 ? (
                   <p className="profile-limit-hint">You’ve picked your top {maxTopValues}. Tap one to remove it.</p>
                 ) : (
-                  <p className="profile-limit-hint">Pick {valuesRemaining} more to complete your top {maxTopValues}.</p>
+                  <p className="profile-limit-hint">Pick {valuesRemaining} more to complete your top {maxTopValues}. The rest will still count, just a bit less.</p>
                 )}
                 <div className="selected-tags">
-                  {profile.values.map((value, idx) => (
-                    <span 
-                      key={idx} 
-                      className="tag selected value-tag"
-                      onClick={() => handleRemoveValue(value)}
-                    >
-                      {value} ×
-                    </span>
-                  ))}
+                  {profile.allValues?.map((value, idx) => {
+                    const isTop = idx < maxTopValues;
+                    const base = 'tag selected value-tag';
+                    const tagClass = isTop ? `${base} tag-top` : `${base} tag-extra`;
+                    return (
+                      <span
+                        key={idx}
+                        className={tagClass}
+                        onClick={() => toggleValue(value)}
+                      >
+                        {value} ×
+                      </span>
+                    );
+                  })}
                 </div>
                 <div className="available-tags">
                   {availableValues
-                    .filter(v => !profile.values.includes(v))
-                    .filter(() => (profile.values?.length || 0) < maxTopValues)
+                    .filter(v => !profile.allValues?.includes(v))
                     .map((value, idx) => (
                       <span
                         key={idx}
                         className="tag available value-tag"
-                        onClick={() => handleAddValue(value)}
+                        onClick={() => toggleValue(value)}
                       >
                         + {value}
                       </span>
@@ -238,8 +308,11 @@ const ProfilePage = () => {
               </div>
             ) : (
               <div className="tags">
-                {profile.values.map((value, idx) => (
+                {topValues.map((value, idx) => (
                   <span key={idx} className="tag value-tag">{value}</span>
+                ))}
+                {extraValues.map((value, idx) => (
+                  <span key={`extra-${idx}`} className="tag value-tag">{value}</span>
                 ))}
               </div>
             )}
