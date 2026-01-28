@@ -1,0 +1,153 @@
+.swipe-card {
+  background: white;
+  border-radius: clamp(16px, 4vw, 24px);
+  padding: clamp(1rem, 4vw, 2rem);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-width: min(500px, 95vw);
+  margin: 0 auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  padding-bottom: clamp(1rem, 3vw, 1.5rem);
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.user-avatar {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  width: clamp(60px, 16vw, 80px);
+  height: clamp(60px, 16vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  margin: 0;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  color: #333;
+  font-weight: 600;
+}
+
+.user-location {
+  margin: clamp(0.25rem, 1vw, 0.5rem) 0 0 0;
+  color: #666;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+}
+
+.card-bio {
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.card-bio p {
+  color: #555;
+  line-height: 1.6;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  margin: 0;
+}
+
+.card-interests,
+.card-values {
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.card-interests h3,
+.card-values h3 {
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  color: #888;
+  margin: 0 0 clamp(0.5rem, 1.5vw, 0.75rem) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.375rem, 1vw, 0.5rem);
+}
+
+.tag {
+  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.75rem, 2vw, 1rem);
+  border-radius: 20px;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  font-weight: 500;
+  display: inline-block;
+}
+
+.interest-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.value-tag {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 4vw, 2rem);
+  margin-top: clamp(1rem, 4vw, 2rem);
+  padding-top: clamp(1rem, 3vw, 1.5rem);
+  border-top: 2px solid #f0f0f0;
+}
+
+.action-btn {
+  width: clamp(50px, 12vw, 60px);
+  height: clamp(50px, 12vw, 60px);
+  border-radius: 50%;
+  border: none;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pass-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+}
+
+.pass-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.like-btn {
+  background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+  color: white;
+}
+
+.like-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(81, 207, 102, 0.4);
+}

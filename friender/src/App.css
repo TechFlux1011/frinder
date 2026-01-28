@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding-bottom: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Add bottom padding on mobile when navbar is at bottom */
+@media (max-width: 768px) {
+  .App {
+    padding-bottom: clamp(60px, 15vw, 80px);
+  }
+}

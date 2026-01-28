@@ -1,0 +1,296 @@
+.matches-page {
+  min-height: calc(100vh - clamp(80px, 15vw, 100px));
+  padding: clamp(1rem, 4vw, 2rem) clamp(0.75rem, 2vw, 1rem);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+@media (max-width: 768px) {
+  .matches-page {
+    min-height: calc(100vh - clamp(60px, 15vw, 80px));
+    padding-bottom: clamp(1rem, 4vw, 2rem);
+  }
+}
+
+.matches-container {
+  max-width: min(1200px, 95vw);
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 6vw, 3rem);
+}
+
+.page-header h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  color: #333;
+  margin: 0 0 clamp(0.375rem, 1vw, 0.5rem) 0;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #666;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  margin: 0;
+}
+
+.matches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: clamp(1.5rem, 4vw, 2rem);
+}
+
+.match-card {
+  background: white;
+  border-radius: clamp(16px, 4vw, 20px);
+  padding: clamp(1.5rem, 4vw, 2rem);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.match-header {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  padding-bottom: clamp(1rem, 3vw, 1.5rem);
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.match-avatar {
+  font-size: clamp(2.5rem, 6vw, 3rem);
+  width: clamp(50px, 12vw, 60px);
+  height: clamp(50px, 12vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.match-name {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.match-time {
+  color: #888;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  margin: clamp(0.2rem, 0.5vw, 0.25rem) 0 0 0;
+}
+
+.match-bio {
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.common-interests {
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.common-interests h4 {
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  color: #888;
+  margin: 0 0 clamp(0.5rem, 1.5vw, 0.75rem) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.375rem, 1vw, 0.5rem);
+}
+
+.tag {
+  padding: clamp(0.3rem, 1vw, 0.4rem) clamp(0.7rem, 2vw, 0.9rem);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: clamp(12px, 3vw, 15px);
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  font-weight: 500;
+}
+
+.plan-meetup-btn {
+  width: 100%;
+  padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.plan-meetup-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.meetup-info {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 12px;
+  margin-top: clamp(0.75rem, 2vw, 1rem);
+}
+
+.meetup-info h4 {
+  margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
+  color: #333;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.meetup-info p {
+  margin: clamp(0.375rem, 1vw, 0.5rem) 0;
+  color: #555;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+}
+
+.meetup-status {
+  display: inline-block;
+  padding: clamp(0.2rem, 0.5vw, 0.25rem) clamp(0.6rem, 1.5vw, 0.75rem);
+  border-radius: 12px;
+  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+  font-weight: 600;
+  margin-top: clamp(0.375rem, 1vw, 0.5rem);
+  text-transform: uppercase;
+}
+
+.meetup-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.meetup-status.confirmed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.meetup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.meetup-form {
+  background: white;
+  border-radius: clamp(16px, 4vw, 20px);
+  padding: clamp(1.5rem, 4vw, 2rem);
+  max-width: min(500px, 90vw);
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.meetup-form h2 {
+  margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0;
+  color: #333;
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+}
+
+.meetup-form form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2vw, 1rem);
+}
+
+.meetup-form input {
+  padding: clamp(0.75rem, 2vw, 1rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.meetup-form input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.form-actions {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-top: clamp(0.75rem, 2vw, 1rem);
+}
+
+.form-actions button {
+  flex: 1;
+  padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+  border: none;
+  border-radius: 12px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-actions button[type="button"] {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.form-actions button[type="button"]:hover {
+  background: #d0d0d0;
+}
+
+.form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.form-actions button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.empty-state {
+  text-align: center;
+  padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 4vw, 2rem);
+  background: white;
+  border-radius: clamp(16px, 4vw, 24px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-width: min(500px, 90vw);
+  margin: clamp(2rem, 8vw, 4rem) auto;
+}
+
+.empty-icon {
+  font-size: clamp(3rem, 10vw, 5rem);
+  margin-bottom: clamp(0.75rem, 2vw, 1rem);
+}
+
+.empty-state h2 {
+  color: #333;
+  margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+}
+
+.empty-state p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
