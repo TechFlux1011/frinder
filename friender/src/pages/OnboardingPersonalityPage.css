@@ -1,0 +1,371 @@
+.personality-card {
+  max-width: min(700px, 95vw);
+}
+
+.personality-section {
+  margin-bottom: clamp(2rem, 5vw, 2.5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 2rem);
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.personality-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-title {
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
+  color: #333;
+  margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
+  font-weight: 700;
+}
+
+.section-limit {
+  font-weight: 500;
+  color: #888;
+  font-size: 0.85em;
+}
+
+/* MBTI */
+.mbti-choice {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  flex-wrap: wrap;
+}
+
+.mbti-choice-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.mbti-choice-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.mbti-choice-btn.quiz-btn {
+  border-color: #f093fb;
+}
+
+.mbti-choice-btn.quiz-btn:hover {
+  border-color: #f093fb;
+  color: #d946ef;
+  background: rgba(240, 147, 251, 0.05);
+}
+
+.mbti-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.quiz-result-hint {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+}
+
+.mbti-type-btn {
+  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: white;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  font-weight: 700;
+  font-family: monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #555;
+  letter-spacing: 1px;
+}
+
+.mbti-type-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.mbti-type-btn.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.clear-btn {
+  grid-column: 1 / -1;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.clear-btn:hover {
+  color: #666;
+}
+
+/* Quiz */
+.mbti-quiz {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: 16px;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.quiz-progress {
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-question {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quiz-option-btn {
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.25rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #444;
+  text-align: left;
+}
+
+.quiz-option-btn:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+  color: #333;
+}
+
+/* Zodiac */
+.zodiac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100px, 30%), 1fr));
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.zodiac-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: clamp(0.6rem, 1.5vw, 0.75rem) clamp(0.4rem, 1vw, 0.5rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zodiac-btn:hover {
+  border-color: #f093fb;
+  background: rgba(240, 147, 251, 0.05);
+}
+
+.zodiac-btn.selected {
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+  border-color: #f093fb;
+  box-shadow: 0 4px 12px rgba(240, 147, 251, 0.2);
+}
+
+.zodiac-symbol {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+}
+
+.zodiac-name {
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+  font-weight: 600;
+  color: #333;
+}
+
+.zodiac-dates {
+  font-size: clamp(0.55rem, 1.4vw, 0.65rem);
+  color: #999;
+}
+
+/* Lifestyle */
+.lifestyle-subsection {
+  margin-bottom: clamp(1.25rem, 3vw, 1.5rem);
+}
+
+.lifestyle-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.lifestyle-subsection h4 {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: #555;
+  margin: 0 0 clamp(0.5rem, 1.5vw, 0.75rem) 0;
+  font-weight: 600;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.chip {
+  padding: clamp(0.5rem, 1.5vw, 0.6rem) clamp(1rem, 2.5vw, 1.2rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  background: white;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #555;
+}
+
+.chip:hover {
+  border-color: #667eea;
+}
+
+.chip.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1rem);
+}
+
+.slider-label {
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  color: #888;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.activity-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #c3cfe2, #667eea);
+  outline: none;
+}
+
+.activity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.activity-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+/* Friendship Goals */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(130px, 45%), 1fr));
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goal-card:hover {
+  border-color: #51cf66;
+  background: rgba(81, 207, 102, 0.05);
+}
+
+.goal-card.selected {
+  background: linear-gradient(135deg, rgba(81, 207, 102, 0.1) 0%, rgba(64, 192, 87, 0.1) 100%);
+  border-color: #51cf66;
+  box-shadow: 0 4px 12px rgba(81, 207, 102, 0.2);
+}
+
+.goal-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.goal-icon {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.goal-label {
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+/* Actions */
+.personality-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 4vw, 2rem);
+}
+
+.skip-btn {
+  padding: clamp(0.625rem, 1.5vw, 0.75rem);
+  background: transparent;
+  color: #999;
+  border: none;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.skip-btn:hover {
+  color: #666;
+}

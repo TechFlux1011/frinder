@@ -13,6 +13,10 @@ const RecommendationsPage = () => {
     navigate('/matches');
   };
 
+  const handleViewProfile = (userId) => {
+    navigate(`/profile?user=${userId}`);
+  };
+
   if (recommendedUsers.length === 0) {
     return (
       <div className="recommendations-page">
@@ -30,7 +34,7 @@ const RecommendationsPage = () => {
       <div className="recommendations-container">
         <div className="page-header">
           <h1>Recommended For You</h1>
-          <p>Friends we think you'll connect with based on your interests and values</p>
+          <p>Friends we think you'll connect with based on your profile</p>
         </div>
         
         <div className="recommendations-grid">
@@ -46,6 +50,23 @@ const RecommendationsPage = () => {
                 <h3 className="user-name">{user.name}, {user.age}</h3>
                 <p className="user-location">📍 {user.location}</p>
                 <p className="user-bio">{user.bio}</p>
+
+                {/* Highlight badges */}
+                {user.matchHighlights && user.matchHighlights.length > 0 && (
+                  <div className="rec-highlights">
+                    {user.matchHighlights.map((badge, idx) => (
+                      <span key={idx} className="rec-highlight-badge">{badge}</span>
+                    ))}
+                  </div>
+                )}
+
+                {/* MBTI and Zodiac badges */}
+                {(user.mbtiType || user.zodiacSign) && (
+                  <div className="rec-badges-row">
+                    {user.mbtiType && <span className="rec-mbti-badge">{user.mbtiType}</span>}
+                    {user.zodiacSign && <span className="rec-zodiac-badge">{user.zodiacSign}</span>}
+                  </div>
+                )}
                 
                 <div className="match-reasons">
                   <h4>Why you'll connect:</h4>
@@ -72,13 +93,21 @@ const RecommendationsPage = () => {
                       ))}
                   </div>
                 </div>
-                
-                <button 
-                  className="connect-btn"
-                  onClick={() => handleConnect(user.id)}
-                >
-                  Connect
-                </button>
+
+                <div className="rec-actions">
+                  <button 
+                    className="connect-btn"
+                    onClick={() => handleConnect(user.id)}
+                  >
+                    Connect
+                  </button>
+                  <button
+                    className="view-profile-btn"
+                    onClick={() => handleViewProfile(user.id)}
+                  >
+                    View Profile
+                  </button>
+                </div>
               </div>
             </div>
           ))}

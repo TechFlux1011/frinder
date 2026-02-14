@@ -47,10 +47,10 @@ const SwipePage = () => {
           <h1>Discover Friends</h1>
           <p>Swipe right to connect, left to pass</p>
         </div>
-        <SwipeCard user={currentUser} currentUser={loggedInUser} onSwipe={handleSwipe} />
         <div className="swipe-progress">
           <p>{currentIndex + 1} of {availableUsers.length}</p>
         </div>
+        <SwipeCard user={currentUser} currentUser={loggedInUser} onSwipe={handleSwipe} />
       </div>
     </div>
   );

@@ -148,8 +148,60 @@
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
-.connect-btn {
+.rec-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.25rem, 0.8vw, 0.375rem);
+  justify-content: center;
+  margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.rec-highlight-badge {
+  padding: clamp(0.2rem, 0.6vw, 0.3rem) clamp(0.5rem, 1.5vw, 0.7rem);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%);
+  color: #5b21b6;
+  border-radius: 12px;
+  font-size: clamp(0.6rem, 1.5vw, 0.7rem);
+  font-weight: 600;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.rec-badges-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.375rem, 1vw, 0.5rem);
+  margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.rec-mbti-badge {
+  padding: clamp(0.2rem, 0.6vw, 0.25rem) clamp(0.5rem, 1.5vw, 0.6rem);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 6px;
+  font-size: clamp(0.65rem, 1.6vw, 0.75rem);
+  font-weight: 700;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+.rec-zodiac-badge {
+  padding: clamp(0.2rem, 0.6vw, 0.25rem) clamp(0.5rem, 1.5vw, 0.6rem);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-radius: 6px;
+  font-size: clamp(0.65rem, 1.6vw, 0.75rem);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.rec-actions {
+  display: flex;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
   width: 100%;
+}
+
+.connect-btn {
+  flex: 1;
   padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
   background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
   color: white;
@@ -165,6 +217,23 @@
 .connect-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(81, 207, 102, 0.4);
+}
+
+.view-profile-btn {
+  padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-profile-btn:hover {
+  background: rgba(102, 126, 234, 0.05);
+  transform: translateY(-2px);
 }
 
 .empty-state {

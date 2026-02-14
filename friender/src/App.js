@@ -16,6 +16,7 @@ import './App.css';
 
 import OnboardingProfilePage from './pages/OnboardingProfilePage';
 import OnboardingInterestsPage from './pages/OnboardingInterestsPage';
+import OnboardingPersonalityPage from './pages/OnboardingPersonalityPage';
 
 const AppLayout = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const AppLayout = () => {
         />
         <Route path="/onboarding/profile" element={<OnboardingProfilePage />} />
         <Route path="/onboarding/interests" element={<OnboardingInterestsPage />} />
+        <Route path="/onboarding/personality" element={<OnboardingPersonalityPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/swipe" element={<SwipePage />} />
         <Route path="/recommendations" element={<RecommendationsPage />} />

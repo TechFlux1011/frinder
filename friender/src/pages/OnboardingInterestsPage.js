@@ -76,7 +76,7 @@ const OnboardingInterestsPage = () => {
     });
     markOnboardingComplete();
 
-    navigate('/home');
+    navigate('/onboarding/personality');
   };
 
   if (!currentUser) {
